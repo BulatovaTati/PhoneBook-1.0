@@ -1,6 +1,8 @@
 import Profile from './profile/Profile';
 import userData from './profile/userData.json';
-console.log('userData: ', userData);
+
+import FriendList from './friends/FriendList/friendsList';
+import friends from './friends/friends.json';
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         avatar={userData.avatar}
         stats={userData.stats}
       />
+
+      <FriendList friends={friends} />
     </>
   );
 }

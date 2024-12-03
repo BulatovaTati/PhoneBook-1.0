@@ -1,0 +1,20 @@
+.friendsItem {
+  padding: 10px;
+  border: 1px solid #858585;
+  border-radius: 3px;
+  text-align: center;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.friendsAvatar,
+.friendsName {
+  margin-bottom: 8px;
+}
+
+.isOnline {
+  color: #2ecc71;
+}
+
+.isOffline {
+  color: #e74c3c;
+}
