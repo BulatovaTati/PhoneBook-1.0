@@ -1,0 +1,66 @@
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 297px;
+  padding-bottom: 0;
+  color: #000000;
+  border: 1px solid #9e9e9e;
+  border-radius: 4px;
+}
+
+.descriptionContainer {
+  font-size: 15px;
+  text-align: center;
+  display: block;
+  border-bottom: 1px solid #9e9e9e;
+}
+
+.userAvatar {
+  max-width: 150px;
+  margin: 15px auto 15px auto;
+  background-color: rgba(0, 0, 0, 0.753);
+  border-radius: 50%;
+}
+
+.userName {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.userTag,
+.userLocation {
+  margin: 0 auto 10px auto;
+  font-size: 16px;
+  font-weight: 600;
+  color: #9e9e9e;
+}
+
+.statsList {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  list-style-type: none;
+  text-align: center;
+  background-color: rgba(118, 134, 150, 0.521);
+}
+
+.statsItem {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  width: 82px;
+  font-size: 16px;
+}
+
+.statsItem:nth-of-type(2n) {
+  border-right: 1px solid #9e9e9e;
+  border-left: 1px solid #9e9e9e;
+}
+
+.statsQuantity {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 700;
+}
