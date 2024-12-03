@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { table, thead, th, td, tr } from './transactionHistory.module.css';
+import { table, thead, th, td, tr } from './TransactionHistory.module.css';
 
 function TransactionHistory({ items }) {
   return (
