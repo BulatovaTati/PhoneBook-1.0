@@ -4,7 +4,7 @@ import userData from './profile/userData.json';
 import FriendList from './friends/FriendList/FriendsList';
 import friends from './friends/friends.json';
 
-import TransactionHistory from './transactions/TransactionHistory';
+import TransactionHistory from './transactions/TransactionsHistory';
 import transactions from './transactions/transactions.json';
 
 function App() {

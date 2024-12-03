@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { table, thead, th, td, tr } from './TransactionHistory.module.css';
+import { table, thead, th, td, tr } from './TransactionsHistory.module.css';
 
 function TransactionHistory({ items }) {
   return (
@@ -24,8 +24,8 @@ function TransactionHistory({ items }) {
   );
 }
 
-function toUpperCase(string) {
-  return string[0].toUpperCase() + string.slice(1);
+function toUpperCase(str) {
+  return str[0].toUpperCase() + str.slice(1);
 }
 
 TransactionHistory.propTypes = {
