@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+import { optionsList, optionsBtn } from './Options.module.css';
 
 function Options({ options, onClick, onReset, totalFeedback }) {
   return (
-    <>
-      <ul>
+    <div className={optionsList}>
+      <ul className={optionsList}>
         {options.map((option, index) => {
           const label = option.charAt(0).toUpperCase() + option.slice(1);
           return (
             <li key={index}>
-              <button type="button" onClick={() => onClick(option)}>
+              <button className={optionsBtn} type="button" onClick={() => onClick(option)}>
                 {label}
               </button>
             </li>
@@ -16,11 +17,11 @@ function Options({ options, onClick, onReset, totalFeedback }) {
         })}
       </ul>
       {totalFeedback > 0 && (
-        <button type="button" onClick={onReset}>
+        <button className={optionsBtn} type="button" onClick={onReset}>
           Reset
         </button>
       )}
-    </>
+    </div>
   );
 }
 

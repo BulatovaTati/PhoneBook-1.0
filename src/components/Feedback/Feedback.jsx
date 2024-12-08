@@ -2,26 +2,29 @@ import PropTypes from 'prop-types';
 import { GrStatusGood } from 'react-icons/gr';
 import { MdMoodBad } from 'react-icons/md';
 import { BsEmojiNeutral } from 'react-icons/bs';
+import { feedbackList, feedbackText, feedbackStats } from './Feedback.module.css';
 
 function Feedback({ good, neutral, bad, totalFeedback, positiveFeedback }) {
   return (
     <>
-      <ul>
+      <ul className={feedbackList}>
         <li>
-          <GrStatusGood />
-          <p>Good: {good}</p>
+          <GrStatusGood size={24} color="green" />
+          <p className={feedbackText}>Good: {good}</p>
         </li>
         <li>
-          <BsEmojiNeutral />
-          <p>Neutral: {neutral}</p>
+          <BsEmojiNeutral size={24} color="orange" />
+          <p className={feedbackText}>Neutral: {neutral}</p>
         </li>
         <li>
-          <MdMoodBad />
-          <p>Bad: {bad}</p>
+          <MdMoodBad size={24} color="red" />
+          <p className={feedbackText}>Bad: {bad}</p>
         </li>
       </ul>
-      <p>Total: {totalFeedback}</p>
-      <p>Positive: {positiveFeedback}%</p>
+      <div className={feedbackStats}>
+        <p className={feedbackText}>Total: {totalFeedback}</p>
+        <p className={feedbackText}> Positive: {positiveFeedback}%</p>
+      </div>
     </>
   );
 }

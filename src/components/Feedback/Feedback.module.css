@@ -1,0 +1,21 @@
+.feedbackList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  gap: 20px;
+  text-align: center;
+}
+
+.feedbackText {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.feedbackStats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
