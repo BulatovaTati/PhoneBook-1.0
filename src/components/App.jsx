@@ -4,6 +4,7 @@ import SearchBox from './SearchBox/SearchBox';
 import ContactList from './ContactList/ContactList';
 import Title from './Title/Title';
 import initContacts from '../assets/contactData.json';
+import s from './App.module.css';
 
 const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -36,12 +37,14 @@ const App = () => {
   return (
     <>
       <Title>Phonebook</Title>
-      <ContactForm contacts={contacts} onAdd={addContact} />
-      <SearchBox value={filter} onSearch={setFilter} />
+      <div className={s.container}>
+        <ContactForm contacts={contacts} onAdd={addContact} />
+        <SearchBox value={filter} onSearch={setFilter} />
+      </div>
       {filteredContacts.length ? (
         <ContactList contacts={filteredContacts} onDelete={deleteContact} />
       ) : (
-        <p>No contact in your list</p>
+        <p className={s.noContact}>No contact in your list</p>
       )}
     </>
   );

@@ -1,8 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as yup from 'yup';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+import ErrorText from './ErrorText/ErrorText';
+import s from './ContactForm.module.css';
 
 const initialValues = {
   id: '',
@@ -10,9 +13,9 @@ const initialValues = {
   number: '',
 };
 
-const validationSchema = yup.object({
-  name: yup.string().min(3).max(50).required('Please write down some name'),
-  number: yup.number().required(),
+const validationSchema = Yup.object().shape({
+  name: Yup.string().min(3, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  number: Yup.number().min(3, 'Too Short!').required('Required').typeError('It should be a number'),
 });
 
 const ContactForm = ({ contacts, onAdd }) => {
@@ -22,10 +25,14 @@ const ContactForm = ({ contacts, onAdd }) => {
     );
 
     if (isInclude) {
-      return iziToast.warning({
+      iziToast.warning({
+        position: 'topRight',
         title: 'Wow',
-        message: `${values.name} is already in contacts`,
+        message: `${values.name} is already in your contacts`,
       });
+
+      resetForm();
+      return;
     }
 
     values.id = nanoid(7);
@@ -38,39 +45,45 @@ const ContactForm = ({ contacts, onAdd }) => {
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
     >
-      <Form autoComplete="off">
-        <label htmlFor="name">
-          Name
+      <Form autoComplete="off" className={s.form}>
+        <div className={s.formGroup}>
+          <label htmlFor="name" className={s.formLabel}>
+            Name
+          </label>
           <Field
+            className={s.formInput}
             id="name"
             type="text"
             name="name"
             title="Name may contain only letters, apostrophe, dash and spaces. 
                 For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           />
-          <ErrorMessage name="name" component="p" />
-        </label>
-
-        <label htmlFor="number">
-          Number
+          <ErrorText name="name" />
+        </div>
+        <div className={s.formGroup}>
+          <label htmlFor="number" className={s.formLabel}>
+            Number
+          </label>
           <Field
+            className={s.formInput}
             id="number"
             type="tel"
             name="number"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           />
-          <ErrorMessage name="number" component="p" />
-        </label>
-
-        <button type="submit">Add contact</button>
+          <ErrorText name="number" />
+        </div>
+        <button type="submit" className={s.formBtn}>
+          Add contact
+        </button>
       </Form>
     </Formik>
   );
 };
 
-export default ContactForm;
-
 ContactForm.propTypes = {
   onAdd: PropTypes.func,
   contacts: PropTypes.array,
 };
+
+export default ContactForm;

@@ -2,15 +2,18 @@ import PropTypes from 'prop-types';
 import Contact from './Contact/Contact';
 import Notification from '../Notification/Notification';
 import Title from '../Title/Title';
+import s from './ContactList.module.css';
 
-const ContactsList = ({ contacts, onDelete }) => {
+const ContactList = ({ contacts, onDelete }) => {
   return (
     <>
-      <Title>Contacts</Title>
+      <Title level={2} fontSize={20}>
+        Contacts
+      </Title>
       {contacts.length > 0 ? (
-        <ul>
+        <ul className={s.contactList}>
           {contacts.map(contact => (
-            <li key={contact.id}>
+            <li key={contact.id} className={s.contactItem}>
               <Contact contact={contact} onDelete={onDelete} />
             </li>
           ))}
@@ -22,9 +25,9 @@ const ContactsList = ({ contacts, onDelete }) => {
   );
 };
 
-export default ContactsList;
+export default ContactList;
 
-ContactsList.propTypes = {
+ContactList.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.object),
   onDelete: PropTypes.func,
 };
