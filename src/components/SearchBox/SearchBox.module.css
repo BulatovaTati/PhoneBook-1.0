@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.searchInput {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  width: 100%;
+  padding: 16px;
+  background-color: transparent;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 250ms ease;
+
+  &:hover,
+  &:focus {
+    border-color: #007bff;
+  }
+}

@@ -1,0 +1,29 @@
+.contactInfo {
+  margin-bottom: 20px;
+}
+
+.contactText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contactBtn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  color: #007bff;
+  background-color: transparent;
+  border: 1px solid rgba(0, 123, 255, 0.5);
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: color 250ms ease, background-color 250ms ease, border-color 250ms ease;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+}
