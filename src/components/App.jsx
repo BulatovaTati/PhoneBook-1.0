@@ -1,67 +1,47 @@
 import { useState, useEffect } from 'react';
-import Description from './Description/Description';
-import Feedback from './Feedback/Feedback';
-import Options from './Options/Options';
-import Notification from './Notification/Notification';
+import ContactForm from './ContactForm/ContactForm';
+import SearchBox from './SearchBox/SearchBox';
+import ContactList from './ContactList/ContactList';
+import Title from './Title/Title';
+import initContacts from '../assets/contactData.json';
 
 const App = () => {
-  const [feedback, setFeedback] = useState(() => {
-    const savedFeedback = localStorage.getItem('feedback');
-    return savedFeedback ? JSON.parse(savedFeedback) : { good: 0, neutral: 0, bad: 0 };
+  const [contacts, setContacts] = useState(() => {
+    const savedContacts = localStorage.getItem('contacts');
+    return savedContacts ? JSON.parse(savedContacts) : initContacts;
   });
 
+  const [filter, setFilter] = useState('');
+
   useEffect(() => {
-    localStorage.setItem('feedback', JSON.stringify(feedback));
-  }, [feedback]);
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  const updateFeedback = feedbackType => {
-    setFeedback(prevFeedback => ({
-      ...prevFeedback,
-      [feedbackType]: prevFeedback[feedbackType] + 1,
-    }));
+  const addContact = newContact => {
+    setContacts(prevContacts => {
+      return [newContact, ...prevContacts];
+    });
   };
 
-  const handleReset = () => {
-    setFeedback(prevState =>
-      Object.keys(prevState).reduce((acc, key) => {
-        acc[key] = 0;
-        return acc;
-      }, {})
-    );
+  const deleteContact = contactId => {
+    setContacts(prevContacts => {
+      return prevContacts.filter(contact => contact.id !== contactId);
+    });
   };
 
-  const countTotalFeedback = () => {
-    return Object.values(feedback).reduce((acc, value) => acc + value, 0);
-  };
-
-  const countPositiveFeedback = (totalFeedback, good) => {
-    return totalFeedback ? Math.round((good / totalFeedback) * 100) : 0;
-  };
-
-  const { good, neutral, bad } = feedback;
-  const totalFeedback = countTotalFeedback();
-  const positiveFeedback = countPositiveFeedback(totalFeedback, feedback.good);
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
 
   return (
     <>
-      <Description />
-      <Options
-        options={Object.keys(feedback)}
-        onClick={updateFeedback}
-        onReset={handleReset}
-        totalFeedback={totalFeedback}
-      />
-
-      {totalFeedback > 0 ? (
-        <Feedback
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          totalFeedback={totalFeedback}
-          positiveFeedback={positiveFeedback}
-        />
+      <Title>Phonebook</Title>
+      <ContactForm contacts={contacts} onAdd={addContact} />
+      <SearchBox value={filter} onSearch={setFilter} />
+      {filteredContacts.length ? (
+        <ContactList contacts={filteredContacts} onDelete={deleteContact} />
       ) : (
-        <Notification message="No feedback yet" />
+        <p>No contact in your list</p>
       )}
     </>
   );
