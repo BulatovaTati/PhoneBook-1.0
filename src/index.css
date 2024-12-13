@@ -1,8 +1,5 @@
 body {
-  min-width: 320px;
-  max-width: 1280px;
   min-height: 100vh;
-  padding: 32px;
   margin: 0 auto;
   font-family: sans-serif;
   line-height: 1.5;
@@ -29,4 +26,43 @@ ol {
 img {
   display: block;
   max-width: 100%;
+}
+
+.gallery {
+  margin-top: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+  .gallery {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+.thumb {
+  margin-bottom: 16px;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .thumb {
+    width: calc((100% - 24px) / 2);
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .thumb {
+    width: calc((100% - 48px) / 3);
+  }
 }
