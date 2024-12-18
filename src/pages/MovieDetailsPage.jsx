@@ -28,7 +28,7 @@ const MovieDetailsPage = () => {
     <main>
       <section>
         <div className="container">
-          <BackLink to={BackLink}>Go Back</BackLink>
+          <BackLink to={BackLinkTo}>Go Back</BackLink>
           <MovieCard movie={movie} />
 
           <h2 className={s.title}>Aditional Information</h2>

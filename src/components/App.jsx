@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import SharedLayout from './SharedLayout/SharedLayout';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/NotFoundPage';
