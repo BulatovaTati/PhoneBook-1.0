@@ -1,0 +1,36 @@
+.reviewsList {
+  display: flex;
+  list-style: none;
+  margin-top: 25px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 25px;
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #64b5f6;
+    border-radius: 15px;
+  }
+
+  ::-webkit-scrollbar {
+    height: 15px;
+    background: transparent;
+  }
+  @media (max-width: 560px) {
+    ::-webkit-scrollbar-thumb {
+      background: none;
+    }
+  }
+}
+
+.reviewsItem {
+  padding: 5px;
+  min-width: 350px;
+  max-height: 260px;
+  overflow-y: scroll;
+}
+
+.reviewsText {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,48 @@
+.movies {
+  display: flex;
+  width: 100%;
+  min-height: 700px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  gap: 40px;
+}
+
+.genresList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wrapper {
+  min-width: 450px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border: 8px solid #fff;
+  box-shadow: rgb(1 1 1 / 20%) 2px 2px 5px 0px, rgb(1 1 1 / 20%) -2px -2px 5px 0px;
+  border-radius: 10px;
+  width: 30%;
+}
+
+.cardContainer {
+  display: flex;
+  padding: 0px 25px;
+  color: #f8f8f8;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 60%;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #00aec94d 20px, #39a0ede6 100%);
+}
+
+.cardItem {
+  padding: 5px;
+}

@@ -1,0 +1,26 @@
+.trendList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  gap: 16px;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.card {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #64b5f6;
+}
+
+.link {
+  color: currentColor;
+  padding: 5px;
+  transition: color 250ms ease;
+
+  &:hover,
+  &:focus {
+    color: black;
+  }
+}

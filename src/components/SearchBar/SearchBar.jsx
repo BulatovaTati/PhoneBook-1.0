@@ -1,45 +1,44 @@
 import PropTypes from 'prop-types';
-import { FcSearch } from 'react-icons/fc';
 import { useState } from 'react';
-import customToast from '../ErrorMessages/Toast/ToastMessage';
-import s from './SearchBar.module.css';
+import { FcSearch } from 'react-icons/fc';
+import s from './Searchbar.module.css';
 
-const SearchBar = ({ onSubmit }) => {
+const Searchbar = ({ onChange }) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
 
     if (query.trim() === '') {
-      customToast('warn', 'Oops... Enter something');
-      return;
+      return console.warn('Oops... Enter the title');
     }
 
-    onSubmit(query);
+    onChange(query);
     setQuery('');
   };
+
   return (
-    <header className={s.header}>
-      <form onSubmit={handleSubmit} className={s.searchForm}>
-        <input
-          type="text"
-          name="query"
-          className={s.searchInput}
-          placeholder="Search images and photos"
-          value={query}
-          onChange={e => setQuery(e.target.value.toLowerCase())}
-        />
-        <button type="submit" className={s.searchBtn}>
-          <FcSearch size={20} />
-          Search
-        </button>
-      </form>
-    </header>
+    <section className={s.movies}>
+      <div className="container">
+        <form className={s.searchForm} onSubmit={handleSubmit}>
+          <input
+            className={s.searchInput}
+            type="text"
+            name="query"
+            value={query}
+            onChange={e => setQuery(e.target.value.toLowerCase())}
+          />
+          <button type="submit" className={s.searchBtn}>
+            <FcSearch size={24} />
+          </button>
+        </form>
+      </div>
+    </section>
   );
 };
 
-SearchBar.propTypes = {
-  onSubmit: PropTypes.func,
+Searchbar.propTypes = {
+  onChange: PropTypes.func,
 };
 
-export default SearchBar;
+export default Searchbar;
