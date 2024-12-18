@@ -24,6 +24,7 @@ const MoviesPage = () => {
         if (movies.results.length === 0) {
           console.log('movies.results.length: ', movies.results.length);
         }
+        setIsLoading(false);
       } catch (_) {
         console.error('error');
       } finally {

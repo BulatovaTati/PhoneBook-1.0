@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { getTrendingMovies } from '../services/ApiRequests';
-import s from './App.module.css';
+
 import SharedLayout from './SharedLayout/SharedLayout';
 import HomePage from '../pages/HomePage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 const MoviesPage = lazy(() => import('../pages/MoviesPage'));
 const MovieDetailsPage = lazy(() => import('../pages/MovieDetailsPage'));
@@ -22,7 +21,7 @@ const App = () => {
           <Route path="cast" element={<MovieCast />} />
           <Route path="reviews" element={<MovieReviews />} />
         </Route>
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

@@ -29,9 +29,10 @@
   min-width: 250px;
   border: 1px solid #0101011a;
   box-shadow: rgb(1 1 1 / 10%) 0px 1px 10px 5px;
-  padding-bottom: 40px;
+
   border-radius: 15px;
   display: flex;
+  color: #000;
   background-color: white;
   flex-direction: column;
   transition: transform 0.5s ease;
