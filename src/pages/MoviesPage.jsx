@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getMovieByName } from '../services/ApiRequests';
-import Searchbar from '../components/Searchbar/Searchbar';
+import SearchBar from '../components/SearchBar/SearchBar';
 import Loader from '../components/Loader/Loader';
 import MoviesList from '../components/MovieList/MoviesList';
 
@@ -52,7 +52,7 @@ const MoviesPage = () => {
 
   return (
     <main>
-      <Searchbar onChange={getMovies} />
+      <SearchBar onChange={getMovies} />
       {isLoading && <Loader />}
       <section className={s.movies}>
         <div className="container">{movies && !isLoading && <MoviesList movies={movies} />}</div>
