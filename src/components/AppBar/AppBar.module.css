@@ -23,13 +23,3 @@
     background-color: #64b5f6;
   }
 }
-.current:after {
-  content: '';
-  width: 100%;
-  height: 3px;
-  background-color: #ff001b;
-  border-radius: 2px;
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-}

@@ -8,19 +8,17 @@
 }
 
 .card {
-  border: 1px solid black;
+  max-height: 299px;
+  border: 1px solid white;
+  overflow: hidden;
   border-radius: 4px;
-  padding: 10px;
-  background-color: #64b5f6;
 }
 
 .link {
-  color: currentColor;
-  padding: 5px;
-  transition: color 250ms ease;
+  display: block;
+  transition: transform 0.3s ease;
+}
 
-  &:hover,
-  &:focus {
-    color: black;
-  }
+.link:hover {
+  transform: scale(1.05);
 }

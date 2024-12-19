@@ -3,7 +3,14 @@ import ImagePosterPath from './ImagePosterPath';
 import s from '../MovieCard/MovieCard.module.css';
 
 const MovieCard = ({
-  movie: { original_title, overview, genres, poster_path, vote_average, release_date },
+  movie: {
+    original_title = 'Unknown Title',
+    overview = 'No overview available.',
+    genres = [],
+    poster_path,
+    vote_average = 0,
+    release_date,
+  },
 }) => {
   return (
     <div className={s.container}>

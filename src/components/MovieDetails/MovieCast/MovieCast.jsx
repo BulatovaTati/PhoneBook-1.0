@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { animateScroll } from 'react-scroll';
 import { getCredits } from '../../../services/ApiRequests';
 import ImagePosterPath from '../MovieCard/ImagePosterPath';
 import NoInfo from '../../NoInfo/NoInfo';
@@ -28,12 +29,16 @@ const MovieCast = () => {
     fetchGredits();
   }, [movieId]);
 
+  if (credits) {
+    animateScroll.scrollMore(500);
+  }
+
   return (
-    <section>
+    <>
       {credits.length === 0 && !isLoading && <NoInfo />}
+      {isLoading && <Loader />}
       {credits.length > 0 && !isLoading && (
         <ul className={s.castList}>
-          {isLoading && <Loader />}
           {credits &&
             !isLoading &&
             credits.map(({ id, character, name, profile_path }) => (
@@ -45,7 +50,7 @@ const MovieCast = () => {
             ))}
         </ul>
       )}
-    </section>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { animateScroll } from 'react-scroll';
 import { getReviews } from '../../../services/ApiRequests';
 import NoInfo from '../../NoInfo/NoInfo';
 import s from './MovieReviews.module.css';
@@ -26,12 +27,16 @@ const MovieReviews = () => {
     fetchGredits();
   }, [movieId]);
 
+  if (reviews) {
+    animateScroll.scrollMore(600);
+  }
+  
   return (
-    <section>
+    <>
       {reviews.length === 0 && !isLoading && <NoInfo />}
+      {isLoading && <Loader />}
       {reviews.length > 0 && !isLoading && (
         <ul className={s.reviewsList}>
-          {isLoading && <Loader />}
           {reviews &&
             reviews.map(({ id, author, content }) => (
               <li key={id} className={s.reviewsItem}>
@@ -43,7 +48,7 @@ const MovieReviews = () => {
             ))}
         </ul>
       )}
-    </section>
+    </>
   );
 };
 
