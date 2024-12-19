@@ -21,7 +21,6 @@ const MovieDetailsPage = () => {
         setIsLoading(true);
         const movies = await getMovieById(movieId);
         setMovie(movies);
-        setIsLoading(false);
         setError(null);
       } catch (_) {
         setError('Something went wrong! Please try again later.');

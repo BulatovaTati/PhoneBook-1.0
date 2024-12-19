@@ -7,11 +7,12 @@ import MoviesList from '../components/MovieList/MoviesList';
 
 import s from '../styles/pages/MoviesPage.module.css';
 import customToast from '../components/ErrorMessage/ToastMessage';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [_, setError] = useState(null);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') ?? '';
 
@@ -28,7 +29,6 @@ const MoviesPage = () => {
           customToast('warn', 'Oops... Try another title');
           return;
         }
-        setIsLoading(false);
         setError(null);
       } catch (_) {
         setError('Something went wrong! Please try again later.');
@@ -53,10 +53,18 @@ const MoviesPage = () => {
   return (
     <main>
       <SearchBar onChange={getMovies} />
-      {isLoading && <Loader />}
-      <section className={s.movies}>
-        <div className="container">{movies && !isLoading && <MoviesList movies={movies} />}</div>
-      </section>
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : (
+        <>
+          {isLoading && <Loader />}
+          <section className={s.movies}>
+            <div className="container">
+              {movies && !isLoading && <MoviesList movies={movies} />}
+            </div>
+          </section>
+        </>
+      )}
     </main>
   );
 };

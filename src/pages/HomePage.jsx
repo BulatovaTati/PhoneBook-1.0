@@ -16,7 +16,6 @@ const HomePage = () => {
         setIsLoading(true);
         const movies = await getTrendingMovies();
         setMovies(movies.results);
-        setIsLoading(false);
         setError(null);
       } catch (_) {
         setError('Something went wrong! Please try again later.');
