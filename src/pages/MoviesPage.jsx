@@ -11,7 +11,7 @@ import customToast from '../components/ErrorMessage/ToastMessage';
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [_, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') ?? '';
 
