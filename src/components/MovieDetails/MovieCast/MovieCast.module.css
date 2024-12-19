@@ -1,0 +1,38 @@
+.castList {
+  display: flex;
+  list-style: none;
+  margin-top: 25px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
+}
+
+.castItem {
+  margin: 0 15px;
+  min-width: 280px;
+  border: 1px solid #0101011a;
+  box-shadow: rgb(1 1 1 / 10%) 0px 1px 10px 5px;
+
+  border-radius: 15px;
+  display: flex;
+  color: #000;
+  background-color: white;
+  flex-direction: column;
+  transition: transform 0.5s ease;
+  scroll-snap-align: start;
+
+  & img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 100%;
+  }
+
+  & span {
+    font-weight: 600;
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: center;
+  }
+}

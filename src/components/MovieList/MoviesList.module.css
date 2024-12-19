@@ -1,0 +1,24 @@
+.trendList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  gap: 16px;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.card {
+  max-height: 299px;
+  border: 1px solid white;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.link {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.link:hover {
+  transform: scale(1.05);
+}
