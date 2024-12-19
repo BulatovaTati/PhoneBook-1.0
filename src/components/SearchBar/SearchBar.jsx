@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FcSearch } from 'react-icons/fc';
 import { Toaster } from 'react-hot-toast';
-import s from './Searchbar.module.css';
+import s from './SearchBar.module.css';
 import customToast from '../ErrorMessage/ToastMessage';
 
-const Searchbar = ({ onChange }) => {
+const SearchBar = ({ onChange }) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = e => {
@@ -41,8 +41,8 @@ const Searchbar = ({ onChange }) => {
   );
 };
 
-Searchbar.propTypes = {
+SearchBar.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Searchbar;
+export default SearchBar;
