@@ -19,10 +19,10 @@ const MovieDetailsPage = () => {
     async function fetchMovies() {
       try {
         setIsLoading(true);
+        setError(null);
         const movies = await getMovieById(movieId);
         setMovie(movies);
-        setError(null);
-      } catch (_) {
+      } catch {
         setError('Something went wrong! Please try again later.');
       } finally {
         setIsLoading(false);

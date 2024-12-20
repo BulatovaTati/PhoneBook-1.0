@@ -22,6 +22,7 @@ const MoviesPage = () => {
     async function fetchMovies() {
       try {
         setIsLoading(true);
+        setError(null);
         const movies = await getMovieByName(searchQuery);
         setMovies(movies.results);
 
@@ -29,8 +30,7 @@ const MoviesPage = () => {
           customToast('warn', 'Oops... Try another title');
           return;
         }
-        setError(null);
-      } catch (_) {
+      } catch {
         setError('Something went wrong! Please try again later.');
       } finally {
         setIsLoading(false);

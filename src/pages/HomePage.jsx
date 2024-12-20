@@ -14,10 +14,10 @@ const HomePage = () => {
     async function fetchMovies() {
       try {
         setIsLoading(true);
+        setError(null);
         const movies = await getTrendingMovies();
         setMovies(movies.results);
-        setError(null);
-      } catch (_) {
+      } catch  {
         setError('Something went wrong! Please try again later.');
       } finally {
         setIsLoading(false);
