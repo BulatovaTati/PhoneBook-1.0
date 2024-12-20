@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getMovieByName } from '../services/ApiRequests';
-import Searchbar from '../components/Searchbar/Searchbar';
+import SearchBar from '../components/SearchBar/SearchBar';
 import Loader from '../components/Loader/Loader';
 import MoviesList from '../components/MovieList/MoviesList';
-import s from '../pages/MoviesPage.module.css';
+
+import s from '../styles/pages/MoviesPage.module.css';
+import customToast from '../components/ErrorMessage/ToastMessage';
+import ErrorMessage from '../components/ErrorMessage/ErrorMessage';
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') ?? '';
 
@@ -18,15 +22,16 @@ const MoviesPage = () => {
     async function fetchMovies() {
       try {
         setIsLoading(true);
+        setError(null);
         const movies = await getMovieByName(searchQuery);
         setMovies(movies.results);
 
         if (movies.results.length === 0) {
-          console.log('movies.results.length: ', movies.results.length);
+          customToast('warn', 'Oops... Try another title');
+          return;
         }
-        setIsLoading(false);
-      } catch (_) {
-        console.error('error');
+      } catch {
+        setError('Something went wrong! Please try again later.');
       } finally {
         setIsLoading(false);
       }
@@ -47,11 +52,19 @@ const MoviesPage = () => {
 
   return (
     <main>
-      <Searchbar onChange={getMovies} />
-      {isLoading && <Loader />}
-      <section className={s.movies}>
-        <div className="container">{movies && !isLoading && <MoviesList movies={movies} />}</div>
-      </section>
+      <SearchBar onChange={getMovies} />
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : (
+        <>
+          {isLoading && <Loader />}
+          <section className={s.movies}>
+            <div className="container">
+              {movies && !isLoading && <MoviesList movies={movies} />}
+            </div>
+          </section>
+        </>
+      )}
     </main>
   );
 };

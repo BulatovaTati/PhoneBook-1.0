@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FcSearch } from 'react-icons/fc';
-import s from './Searchbar.module.css';
+import { Toaster } from 'react-hot-toast';
+import s from './SearchBar.module.css';
+import customToast from '../ErrorMessage/ToastMessage';
 
-const Searchbar = ({ onChange }) => {
+const SearchBar = ({ onChange }) => {
   const [query, setQuery] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
 
     if (query.trim() === '') {
-      return console.warn('Oops... Enter the title');
+      customToast('warn', 'Oops... Enter the title');
+      return;
     }
 
     onChange(query);
@@ -33,12 +36,13 @@ const Searchbar = ({ onChange }) => {
           </button>
         </form>
       </div>
+      <Toaster />
     </section>
   );
 };
 
-Searchbar.propTypes = {
+SearchBar.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Searchbar;
+export default SearchBar;
