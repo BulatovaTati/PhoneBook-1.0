@@ -1,10 +1,12 @@
 body {
+  min-width: 320px;
+  max-width: 1280px;
   min-height: 100vh;
+  padding: 32px;
   margin: 0 auto;
   font-family: sans-serif;
   line-height: 1.5;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.56);
+  background-color: rgba(206, 212, 218, 0.3);
 }
 
 h1,
@@ -27,62 +29,4 @@ ol {
 img {
   display: block;
   max-width: 100%;
-}
-
-.gallery {
-  margin-top: 100px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-@media only screen and (min-width: 768px) {
-  .gallery {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-}
-
-.thumb {
-  margin-bottom: 16px;
-
-  &:hover {
-    transform: scale(1.05);
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .thumb {
-    width: calc((100% - 24px) / 2);
-    margin-bottom: 0;
-  }
-}
-
-@media only screen and (min-width: 1280px) {
-  .thumb {
-    width: calc((100% - 48px) / 3);
-  }
-}
-
-.container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-@media only screen and (min-width: 768px) {
-  .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-}
-
-@media only screen and (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
 }
