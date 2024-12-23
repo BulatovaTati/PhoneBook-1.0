@@ -1,6 +1,4 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -38,14 +36,6 @@ const contactsSlice = createSlice({
   },
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage,
-  blacklist: ['filter'],
-};
-
 export const { addContact, deleteContact } = contactsSlice.actions;
-
 export const selectContacts = state => state.contacts.items;
-
-export const contactsReducer = persistReducer(persistConfig, contactsSlice.reducer);
+export const contactsReducer = contactsSlice.reducer;
