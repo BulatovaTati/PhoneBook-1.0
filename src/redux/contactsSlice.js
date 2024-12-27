@@ -1,41 +1,53 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './contactsOps';
+import customToast from '../components/Toast/Toast';
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+  customToast('error', 'Oops... something went wrong, try again!');
+};
+
+const handleFulfilled = state => {
+  state.isLoading = false;
+  state.error = null;
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     items: [],
+    isLoading: false,
+    error: null,
   },
-  reducers: {
-    addContact: (state, { payload: { name, number } }) => {
-      if (state.items.some(el => el.name === name)) {
-        iziToast.warning({
-          position: 'topRight',
-          title: 'Wow',
-          message: `${name} is already in your contacts`,
-        });
-        return;
-      }
-
-      state.items.push({
-        id: nanoid(6),
-        name,
-        number,
-      });
-    },
-
-    deleteContact: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
-      iziToast.info({
-        position: 'topRight',
-        title: 'OK',
-        message: `Contact removed`,
-      });
-    },
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, handlePending)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        handleFulfilled(state);
+        state.items = action.payload;
+        customToast('success', 'Countacts are loaded');
+      })
+      .addCase(fetchContacts.rejected, handleRejected)
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, (state, action) => {
+        handleFulfilled(state);
+        state.items.push(action.payload);
+        customToast('success', `Contact added: ${action.payload.name}`);
+      })
+      .addCase(addContact.rejected, handleRejected)
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        handleFulfilled(state);
+        state.items = state.items.filter(item => item.id !== action.payload);
+        customToast('success', 'Contact removed');
+      })
+      .addCase(deleteContact.rejected, handleRejected);
   },
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
-export const selectContacts = state => state.contacts.items;
 export const contactsReducer = contactsSlice.reducer;

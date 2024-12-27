@@ -1,9 +1,10 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+
 import ErrorText from './ErrorText/ErrorText';
 import s from './ContactForm.module.css';
+import { addContact } from '../../redux/contactsOps';
 
 const initialValues = {
   id: '',
