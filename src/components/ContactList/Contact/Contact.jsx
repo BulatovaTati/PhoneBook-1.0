@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../../redux/contactsSlice';
 import { FaUser } from 'react-icons/fa';
 import { FaPhoneAlt } from 'react-icons/fa';
 import s from './Contact.module.css';
+import { deleteContact } from '../../../redux/contactsOps';
 
 const Contact = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();
+  const handleDelete = () => dispatch(deleteContact(id));
 
   return (
     <>
@@ -20,12 +21,7 @@ const Contact = ({ contact: { id, name, number } }) => {
           <p className={s.contactText}> {number}</p>
         </div>
       </div>
-      <button
-        className={s.contactBtn}
-        title="Delete"
-        type="button"
-        onClick={() => dispatch(deleteContact(id))}
-      >
+      <button className={s.contactBtn} title="Delete" type="button" onClick={handleDelete}>
         Delete
       </button>
     </>
