@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './contactsOps';
-import customToast from '../components/Toast/Toast';
+import { fetchContacts, addContact, deleteContact } from './operations';
+import customToast from '../../components/Toast/Toast';
+import { logOut } from '../auth/operations';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -46,7 +47,12 @@ const contactsSlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload);
         customToast('success', 'Contact removed');
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(logOut.fulfilled, state => {
+        state.items = [];
+        state.isLoading = false;
+        state.error = null;
+      });
   },
 });
 
