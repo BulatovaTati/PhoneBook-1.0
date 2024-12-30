@@ -7,6 +7,7 @@ import PrivateRoute from './Auth/PrivateRoute';
 import RestrictedRoute from './Auth/RestrictedRoute';
 import { refreshUser } from '../redux/auth/operations';
 import { selectIsFetching } from '../redux/auth/selectors';
+import Loader from './Loader/Loader';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
@@ -22,7 +23,7 @@ const App = () => {
   }, [dispatch]);
 
   return isFetchingCurrentUser ? (
-    <b>Refreshing user...</b>
+    <Loader />
   ) : (
     <Routes>
       <Route path="/" element={<Layout />}>

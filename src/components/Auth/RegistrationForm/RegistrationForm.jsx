@@ -17,15 +17,21 @@ const RegistrationFrom = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     const form = e.target;
-    dispatch(
-      register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
+
+    const name = form.elements.name.value;
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+
+    dispatch(register({ name, email, password }))
+      .unwrap()
+      .then(() => {
+        form.reset();
       })
-    );
+      .catch(error => {
+        console.error(error);
+      });
+
     form.reset();
   };
 
@@ -46,30 +52,32 @@ const RegistrationFrom = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} autoComplete="off">
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }} autoComplete="off">
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid xs={12} sx={{ width: '100%' }}>
               <TextField
                 required
                 fullWidth
                 id="name"
                 label="Name"
                 name="name"
+                type="name"
                 autoComplete="family-name"
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12} sx={{ width: '100%' }}>
               <TextField
                 required
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
+                type="email"
                 autoComplete="email"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid xs={12} sx={{ width: '100%' }}>
               <TextField
                 required
                 fullWidth

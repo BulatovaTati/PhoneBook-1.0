@@ -6,11 +6,9 @@ const Title = ({ level = 1, fontSize, children }) => {
   const titleStyle = fontSize ? { fontSize } : {};
 
   return (
-    <div className={s.container}>
-      <Title className={s.mainTitle} style={titleStyle}>
-        {children}
-      </Title>
-    </div>
+    <Title className={s.mainTitle} style={titleStyle}>
+      {children}
+    </Title>
   );
 };
 

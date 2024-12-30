@@ -31,6 +31,12 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         handleFulfilled(state);
         state.items = action.payload;
+
+        if (action.payload.length === 0) {
+          customToast('warn', 'No countacts added');
+          return;
+        }
+
         customToast('success', 'Countacts are loaded');
       })
       .addCase(fetchContacts.rejected, handleRejected)

@@ -1,12 +1,9 @@
 .mainTitle {
   font-size: 30px;
+  margin-bottom: 16px;
   text-align: center;
   color: #007bff;
-}
-
-.container {
-  padding: 10px 15px;
-  margin-bottom: 25px;
+  padding: 15px;
   background-color: #bce8f1;
   border-color: #bce8f1;
   border-radius: 8px;

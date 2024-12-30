@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
 import { FaPhoneAlt } from 'react-icons/fa';
+import { deleteContact } from '../../../redux/contacts/operations';
 import s from './Contact.module.css';
-import { deleteContact } from '../../../redux/contactsOps';
 
 const Contact = ({ contact: { id, name, number } }) => {
   const dispatch = useDispatch();
