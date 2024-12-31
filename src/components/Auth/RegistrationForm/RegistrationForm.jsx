@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { Formik, Form, Field } from 'formik';
 import { register } from '../../../redux/auth/operations';
+import { Formik, Form, Field } from 'formik';
 import { validationSchemaRegistrationForm } from '../../validationsForm';
 
 import Avatar from '@mui/material/Avatar';
@@ -24,14 +24,8 @@ const RegistrationForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(register(values))
-      .unwrap()
-      .then(() => {
-        resetForm();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    dispatch(register(values));
+    resetForm();
   };
 
   return (
