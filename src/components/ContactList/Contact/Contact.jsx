@@ -29,17 +29,19 @@ const Contact = ({ contact, onEditClick }) => {
           <p className={s.contactText}> {number}</p>
         </div>
       </div>
-      <button className={s.contactBtn} title="Delete" type="button" onClick={handleDeleteClick}>
-        Delete
-      </button>
-      <button
-        className={s.contactBtn}
-        title="Edit"
-        type="button"
-        onClick={() => onEditClick(contact)}
-      >
-        Edit
-      </button>
+      <div className={s.btnContainer}>
+        <button
+          className={s.contactBtn}
+          title="Edit"
+          type="button"
+          onClick={() => onEditClick(contact)}
+        >
+          Edit
+        </button>
+        <button className={s.contactBtn} title="Delete" type="button" onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
       <ContactDeleteModal isOpen={isModalOpen} onClose={handleCloseModal} contactId={id} />
     </>
   );

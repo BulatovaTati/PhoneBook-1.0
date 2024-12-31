@@ -34,7 +34,7 @@ const EditContactModal = ({ isOpen, onClose, contact }) => {
         validationSchema={validationSchemaContactForm}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, errors, touched }) => (
+        {({ errors, touched }) => (
           <Form>
             <Box
               sx={{
@@ -66,7 +66,7 @@ const EditContactModal = ({ isOpen, onClose, contact }) => {
                 />
               </div>
               <div>
-                <Button type="submit" disabled={isSubmitting} variant="contained" fullWidth>
+                <Button type="submit" variant="contained" fullWidth>
                   Save Changes
                 </Button>
                 <Button onClick={onClose} variant="outlined" fullWidth sx={{ mt: 2 }}>
