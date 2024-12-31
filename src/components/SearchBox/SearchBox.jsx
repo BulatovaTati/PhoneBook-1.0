@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter } from '../../redux/filters/slice';
+import { selectNameFilter } from '../../redux/filters/selectors';
 import Title from '../Title/Title';
 import s from './SearchBox.module.css';
-import { changeFilter } from '../../redux/filtersSlice';
-import { selectNameFilter } from '../../redux/selectors';
 
 const SearchBox = () => {
   const dispatch = useDispatch();
   const filter = useSelector(selectNameFilter);
+
   const handleFilterChange = value => dispatch(changeFilter(value));
 
   return (
@@ -17,9 +18,10 @@ const SearchBox = () => {
       <input
         className={s.searchInput}
         type="text"
-        name="filter"
+        name="nameFilter"
         value={filter}
         onChange={e => handleFilterChange(e.target.value)}
+        placeholder="Search by name or phone"
       />
     </div>
   );

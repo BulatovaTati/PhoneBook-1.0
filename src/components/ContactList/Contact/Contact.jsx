@@ -1,13 +1,21 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
 import { FaPhoneAlt } from 'react-icons/fa';
+import ContactDeleteModal from '../../Modals/ContactDeleteModal/ContactDeleteModal';
 import s from './Contact.module.css';
-import { deleteContact } from '../../../redux/contactsOps';
 
-const Contact = ({ contact: { id, name, number } }) => {
-  const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(id));
+const Contact = ({ contact, onEditClick }) => {
+  const { id, name, number } = contact;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -21,17 +29,30 @@ const Contact = ({ contact: { id, name, number } }) => {
           <p className={s.contactText}> {number}</p>
         </div>
       </div>
-      <button className={s.contactBtn} title="Delete" type="button" onClick={handleDelete}>
-        Delete
-      </button>
+      <div className={s.btnContainer}>
+        <button
+          className={s.contactBtn}
+          title="Edit"
+          type="button"
+          onClick={() => onEditClick(contact)}
+        >
+          Edit
+        </button>
+        <button className={s.contactBtn} title="Delete" type="button" onClick={handleDeleteClick}>
+          Delete
+        </button>
+      </div>
+      <ContactDeleteModal isOpen={isModalOpen} onClose={handleCloseModal} contactId={id} />
     </>
   );
 };
 
-export default Contact;
-
 Contact.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
 };
+
+export default Contact;

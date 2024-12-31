@@ -3,6 +3,7 @@
 }
 
 .contactText {
+  color: #000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -10,7 +11,6 @@
 
 .contactBtn {
   display: block;
-  margin: 0 auto;
   padding: 10px;
   color: #007bff;
   background-color: transparent;
@@ -26,4 +26,10 @@
     background-color: #007bff;
     border-color: #007bff;
   }
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
 }

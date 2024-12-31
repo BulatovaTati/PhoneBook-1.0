@@ -1,37 +1,47 @@
+import { useEffect, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
+import { Route, Routes } from 'react-router-dom';
 
-import ContactForm from './ContactForm/ContactForm';
-import SearchBox from './SearchBox/SearchBox';
-import ContactList from './ContactList/ContactList';
-import Title from './Title/Title';
-import s from './App.module.css';
-import { selectError, selectIsLoading } from '../redux/selectors';
-import { fetchContacts } from '../redux/contactsOps';
+import Layout from './Pages/Layout/Layout';
+import PrivateRoute from './Auth/PrivateRoute';
+import RestrictedRoute from './Auth/RestrictedRoute';
+import { refreshUser } from '../redux/auth/operations';
+import { selectIsFetching } from '../redux/auth/selectors';
 import Loader from './Loader/Loader';
+
+const HomePage = lazy(() => import('../pages/HomePage'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage'));
 
 const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isFetchingCurrentUser = useSelector(selectIsFetching);
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <>
-      <Toaster />
-      <Title>Phonebook</Title>
-      <ContactForm />
-      <SearchBox />
-      <Title level={2} fontSize={20}>
-        Contacts
-      </Title>
-      {isLoading && !error && <Loader />}
-      {!isLoading && <ContactList />}
-    </>
+  return isFetchingCurrentUser ? (
+    <Loader />
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={<RestrictedRoute redirectTo="/contacts" component={<RegisterPage />} />}
+        />
+        <Route
+          path="/login"
+          element={<RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />}
+        />
+        <Route
+          path="/contacts"
+          element={<PrivateRoute redirectTo="/login" component={<ContactsPage />} />}
+        />
+      </Route>
+    </Routes>
   );
 };
 

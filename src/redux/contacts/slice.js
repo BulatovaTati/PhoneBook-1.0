@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './contactsOps';
-import customToast from '../components/Toast/Toast';
+import { fetchContacts, addContact, deleteContact, updateContact } from './operations';
+import customToast from '../../components/Toast/Toast';
+import { logOut } from '../auth/operations';
 
 const handlePending = state => {
   state.isLoading = true;
@@ -30,6 +31,12 @@ const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         handleFulfilled(state);
         state.items = action.payload;
+
+        if (action.payload.length === 0) {
+          customToast('warn', 'No countacts added');
+          return;
+        }
+
         customToast('success', 'Countacts are loaded');
       })
       .addCase(fetchContacts.rejected, handleRejected)
@@ -46,7 +53,19 @@ const contactsSlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload);
         customToast('success', 'Contact removed');
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(logOut.fulfilled, state => {
+        state.items = [];
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(updateContact.fulfilled, (state, action) => {
+        const updatedContact = action.payload;
+        const index = state.items.findIndex(contact => contact.id === updatedContact.id);
+        if (index !== -1) {
+          state.items[index] = updatedContact;
+        }
+      });
   },
 });
 
