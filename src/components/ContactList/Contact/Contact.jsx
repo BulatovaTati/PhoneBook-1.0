@@ -2,10 +2,11 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaUser } from 'react-icons/fa';
 import { FaPhoneAlt } from 'react-icons/fa';
+import ContactDeleteModal from '../../Modals/ContactDeleteModal/ContactDeleteModal';
 import s from './Contact.module.css';
-import ContactDeleteModal from '../../ContactDeleteModal/ContactDeleteModal';
 
-const Contact = ({ contact: { id, name, number } }) => {
+const Contact = ({ contact, onEditClick }) => {
+  const { id, name, number } = contact;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -31,7 +32,14 @@ const Contact = ({ contact: { id, name, number } }) => {
       <button className={s.contactBtn} title="Delete" type="button" onClick={handleDeleteClick}>
         Delete
       </button>
-
+      <button
+        className={s.contactBtn}
+        title="Edit"
+        type="button"
+        onClick={() => onEditClick(contact)}
+      >
+        Edit
+      </button>
       <ContactDeleteModal isOpen={isModalOpen} onClose={handleCloseModal} contactId={id} />
     </>
   );

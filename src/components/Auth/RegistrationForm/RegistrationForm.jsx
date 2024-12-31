@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import { register } from '../../../redux/auth/operations';
+import { validationSchemaRegistrationForm } from '../../validationsForm';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,14 +13,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('Name is required'),
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
-});
 
 const initialValues = {
   name: '',
@@ -61,7 +53,7 @@ const RegistrationForm = () => {
         </Typography>
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          validationSchema={validationSchemaRegistrationForm}
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (

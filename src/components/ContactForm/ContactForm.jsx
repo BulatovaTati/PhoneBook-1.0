@@ -1,9 +1,8 @@
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/operations';
 import ErrorText from './ErrorText/ErrorText';
-
+import { validationSchemaContactForm } from '../validationsForm';
 import s from './ContactForm.module.css';
 
 const initialValues = {
@@ -11,22 +10,6 @@ const initialValues = {
   name: '',
   number: '',
 };
-
-const nameRegExp = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
-
-const phoneRegExp = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(3, 'Too Short!')
-    .max(50, 'Too Long!')
-    .matches(nameRegExp, 'Name is not valid')
-    .required('Required'),
-  number: Yup.string()
-    .min(3, 'Too Short!')
-    .matches(phoneRegExp, 'Phone number is not valid')
-    .required('Required'),
-});
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -40,7 +23,7 @@ const ContactForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={validationSchemaContactForm}
       onSubmit={handleSubmit}
     >
       <Form autoComplete="off" className={s.form}>

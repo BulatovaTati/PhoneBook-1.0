@@ -44,3 +44,9 @@
   background-color: #4caf50;
   color: white;
 }
+
+.titleModal {
+  margin-bottom: 16px;
+  font-size: 20px;
+  text-align: center;
+}

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import { fetchContacts, addContact, deleteContact, updateContact } from './operations';
 import customToast from '../../components/Toast/Toast';
 import { logOut } from '../auth/operations';
 
@@ -58,6 +58,13 @@ const contactsSlice = createSlice({
         state.items = [];
         state.isLoading = false;
         state.error = null;
+      })
+      .addCase(updateContact.fulfilled, (state, action) => {
+        const updatedContact = action.payload;
+        const index = state.items.findIndex(contact => contact.id === updatedContact.id);
+        if (index !== -1) {
+          state.items[index] = updatedContact;
+        }
       });
   },
 });

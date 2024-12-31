@@ -1,36 +1,13 @@
-import { useEffect } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
+import { deleteContact } from '../../../redux/contacts/operations';
 import s from './ContactDeleteModal.module.css';
 
 Modal.setAppElement('#root');
 
 const ContactDeleteModal = ({ isOpen, onClose, contactId }) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const handleKeyDown = e => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose]);
-
-  const handleOverlayClick = e => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   const handleDelete = () => {
     dispatch(deleteContact(contactId));
@@ -41,7 +18,6 @@ const ContactDeleteModal = ({ isOpen, onClose, contactId }) => {
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
-      onClick={handleOverlayClick}
       aria-modal="true"
       className={s.modal}
       overlayClassName={s.overlay}
