@@ -1,13 +1,20 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { FaUser } from 'react-icons/fa';
 import { FaPhoneAlt } from 'react-icons/fa';
-import { deleteContact } from '../../../redux/contacts/operations';
 import s from './Contact.module.css';
+import ContactDeleteModal from '../../ContactDeleteModal/ContactDeleteModal';
 
 const Contact = ({ contact: { id, name, number } }) => {
-  const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(id));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -21,17 +28,21 @@ const Contact = ({ contact: { id, name, number } }) => {
           <p className={s.contactText}> {number}</p>
         </div>
       </div>
-      <button className={s.contactBtn} title="Delete" type="button" onClick={handleDelete}>
+      <button className={s.contactBtn} title="Delete" type="button" onClick={handleDeleteClick}>
         Delete
       </button>
+
+      <ContactDeleteModal isOpen={isModalOpen} onClose={handleCloseModal} contactId={id} />
     </>
   );
 };
 
-export default Contact;
-
 Contact.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  number: PropTypes.string,
+  contact: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+  }).isRequired,
 };
+
+export default Contact;
