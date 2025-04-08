@@ -18,19 +18,25 @@ const handleFulfilled = state => {
   state.error = null;
 };
 
+const initialState = {
+  items: [],
+  page: 1,
+  totalPages: 1,
+  isLoading: false,
+  error: null,
+};
+
 const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, handlePending)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         handleFulfilled(state);
-        state.items = action.payload;
+        state.items = action.payload.data.data;
+        state.totalPages = action.payload.data.totalPages;
+        state.page = action.payload.data.page;
 
         if (action.payload.length === 0) {
           customToast('warn', 'No countacts added');
@@ -43,14 +49,14 @@ const contactsSlice = createSlice({
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
         handleFulfilled(state);
-        state.items.push(action.payload);
-        customToast('success', `Contact added: ${action.payload.name}`);
+        state.items.push(action.payload.data);
+        customToast('success', `Contact added: ${action.payload.data.name}`);
       })
       .addCase(addContact.rejected, handleRejected)
       .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, (state, action) => {
         handleFulfilled(state);
-        state.items = state.items.filter(item => item.id !== action.payload);
+        state.items = state.items.filter(item => item._id !== action.payload);
         customToast('success', 'Contact removed');
       })
       .addCase(deleteContact.rejected, handleRejected)
@@ -60,8 +66,8 @@ const contactsSlice = createSlice({
         state.error = null;
       })
       .addCase(updateContact.fulfilled, (state, action) => {
-        const updatedContact = action.payload;
-        const index = state.items.findIndex(contact => contact.id === updatedContact.id);
+        const updatedContact = action.payload.data;
+        const index = state.items.findIndex(contact => contact._id === updatedContact._id);
         if (index !== -1) {
           state.items[index] = updatedContact;
         }

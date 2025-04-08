@@ -8,17 +8,29 @@ import ContactList from '../components/ContactList/ContactList';
 import Title from '../components/Title/Title';
 import Loader from '../components/Loader/Loader';
 
-import { selectError, selectIsLoading } from '../redux/contacts/selectors';
+import {
+  selectError,
+  selectIsLoading,
+  selectPage,
+  selectTotalPages,
+} from '../redux/contacts/selectors';
 import { fetchContacts } from '../redux/contacts/operations';
+import Pagination from '../components/Pagination/Pagination.jsx';
 
 const ContactPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const page = useSelector(selectPage);
+  const totalPages = useSelector(selectTotalPages);
 
   useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+    dispatch(fetchContacts({ page }));
+  }, [page, dispatch]);
+
+  const handlePageChange = selectedPage => {
+    dispatch(fetchContacts({ page: selectedPage }));
+  };
 
   return (
     <>
@@ -31,6 +43,7 @@ const ContactPage = () => {
       </Title>
       {isLoading && !error && <Loader />}
       {!isLoading && <ContactList />}
+      <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </>
   );
 };
