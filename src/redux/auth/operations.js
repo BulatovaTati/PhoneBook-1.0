@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.goit.global';
+axios.defaults.baseURL = 'https://nodejs-hw-nq50.onrender.com';
+axios.defaults.withCredentials = true;
 
 const setAuthHeader = token => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -15,9 +16,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/users/signup', credentials);
-
-      setAuthHeader(data.token);
+      const { data } = await axios.post('/auth/register', credentials);
 
       return data;
     } catch (error) {
@@ -28,10 +27,8 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
-    const { data } = await axios.post('/users/login', credentials);
-
-    setAuthHeader(data.token);
-
+    const { data } = await axios.post('/auth/login', credentials, { withCredentials: true });
+    setAuthHeader(data.data.accessToken);
     return data;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -40,26 +37,26 @@ export const logIn = createAsyncThunk('auth/login', async (credentials, { reject
 
 export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await axios.post('/users/logout');
-
+    await axios.post('/auth/logout', null, { withCredentials: true });
     clearAuthHeader();
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
-export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const { token } = thunkAPI.getState().auth;
-
-  if (!token) return thunkAPI.rejectWithValue('Oops, Unable to find the User');
-
+export const refreshUser = createAsyncThunk('auth/refresh', async (_, { rejectWithValue }) => {
   try {
-    setAuthHeader(token);
-    const { data } = await axios.get('/users/current');
+    const response = await axios.post('/auth/refresh', null, {
+      withCredentials: true,
+    });
 
-    return data;
+    const { accessToken, name } = response.data.data;
+
+    setAuthHeader(accessToken);
+
+    return { accessToken, name };
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return rejectWithValue(error.message);
   }
 });
 

@@ -15,7 +15,10 @@ export const selectFilteredContacts = createSelector(
     return contacts.filter(
       contact =>
         contact?.name?.toLowerCase().includes(normalizedFilter) ||
-        contact?.number?.toLowerCase().includes(normalizedFilter)
+        contact?.phoneNumber?.toLowerCase().includes(normalizedFilter)
     );
   }
 );
+
+export const selectPage = state => state.contacts.page;
+export const selectTotalPages = state => state.contacts.totalPages;

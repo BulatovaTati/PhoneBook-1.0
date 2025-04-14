@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { register } from '../../../redux/auth/operations';
 import { Formik, Form, Field } from 'formik';
-import { validationSchemaRegistrationForm } from '../../validationsForm';
+import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +13,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import { register } from '../../../redux/auth/operations';
+import { validationSchemaRegistrationForm } from '../../validationsForm';
+
 const initialValues = {
   name: '',
   email: '',
@@ -22,10 +24,18 @@ const initialValues = {
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (values, { resetForm }) => {
-    dispatch(register(values));
-    resetForm();
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        resetForm();
+        navigate('/login');
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   return (
@@ -56,6 +66,7 @@ const RegistrationForm = () => {
                 <Grid xs={12} sx={{ width: '100%' }}>
                   <Field
                     as={TextField}
+                    required
                     fullWidth
                     id="name"
                     label="Name"
@@ -70,6 +81,7 @@ const RegistrationForm = () => {
                 <Grid xs={12} sx={{ width: '100%' }}>
                   <Field
                     as={TextField}
+                    required
                     fullWidth
                     id="email"
                     label="Email Address"
@@ -83,6 +95,7 @@ const RegistrationForm = () => {
                 <Grid xs={12} sx={{ width: '100%' }}>
                   <Field
                     as={TextField}
+                    required
                     fullWidth
                     name="password"
                     label="Password"

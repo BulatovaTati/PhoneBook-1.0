@@ -28,7 +28,7 @@ const ContactList = () => {
       ) : (
         <ul className={s.contactList}>
           {contacts.map(contact => (
-            <li key={contact.id} className={s.contactItem}>
+            <li key={contact._id} className={s.contactItem}>
               <Contact contact={contact} onEditClick={handleEditClick} />
             </li>
           ))}

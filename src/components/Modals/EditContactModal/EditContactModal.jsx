@@ -11,12 +11,12 @@ const EditContactModal = ({ isOpen, onClose, contact }) => {
 
   const initialValues = {
     name: contact.name || '',
-    number: contact.number || '',
+    phoneNumber: contact.phoneNumber || '',
   };
 
   const handleSubmit = values => {
-    const { name, number } = values;
-    dispatch(updateContact({ id: contact.id, name, number }));
+    const { name, phoneNumber } = values;
+    dispatch(updateContact({ contactId: contact._id, name, phoneNumber }));
     onClose();
   };
 
@@ -56,13 +56,13 @@ const EditContactModal = ({ isOpen, onClose, contact }) => {
               </div>
               <div>
                 <Field
-                  name="number"
+                  name="phoneNumber"
                   label="Phone Number"
                   as={TextField}
                   variant="outlined"
                   fullWidth
-                  error={touched.number && Boolean(errors.number)}
-                  helperText={touched.number && errors.number}
+                  error={touched.phoneNumber && Boolean(errors.phoneNumber)}
+                  helperText={touched.phoneNumber && errors.phoneNumber}
                 />
               </div>
               <div>

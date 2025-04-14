@@ -5,8 +5,8 @@ import customToast from '../../components/Toast/Toast';
 const ERROR_TEXT = 'Oops... something went wrong, try again!';
 
 const initialState = {
-  user: { name: null, email: null },
-  token: null,
+  user: null,
+  accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -16,19 +16,16 @@ const authSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-        state.isLoggedIn = true;
-        customToast('success', 'Successful registration');
+      .addCase(register.fulfilled, state => {
+        customToast('success', 'Successful registration, please Log In');
       })
       .addCase(register.rejected, state => {
         customToast('error', ERROR_TEXT);
         return state;
       })
       .addCase(logIn.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
+        state.user = payload.data.name;
+        state.accessToken = payload.data.accessToken;
         state.isLoggedIn = true;
         customToast('success', 'Successful Log In');
       })
@@ -37,8 +34,8 @@ const authSlice = createSlice({
         return state;
       })
       .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
-        state.token = null;
+        state.user = null;
+        state.accessToken = null;
         state.isLoggedIn = false;
         customToast('success', 'Successful Log Out');
       })
@@ -50,12 +47,17 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
-        state.user = payload;
+        state.user = payload.name;
+        state.accessToken = payload.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
+        state.user = null;
+        state.accessToken = null;
+        state.isLoggedIn = false;
+        customToast('warn', 'Session expired, please log in again');
       }),
 });
 

@@ -6,7 +6,7 @@ import s from './UserMenu.module.css';
 
 const UserMenu = () => {
   const dispatch = useDispatch();
-  const { name } = useSelector(selectUser);
+  const name = useSelector(selectUser);
 
   return (
     <div className={s.userContainer}>
