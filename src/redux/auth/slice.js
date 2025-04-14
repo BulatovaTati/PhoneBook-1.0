@@ -54,6 +54,10 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
+        state.user = null;
+        state.accessToken = null;
+        state.isLoggedIn = false;
+        customToast('warn', 'Session expired, please log in again');
       }),
 });
 
