@@ -11,6 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link } from 'react-router-dom';
 
 const initialValues = { email: '', password: '' };
 
@@ -75,6 +76,9 @@ const LoginForm = () => {
               <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Log In
               </Button>
+              <div className="forgot-password">
+                <Link to="/auth/request-reset">Forgot password?</Link>
+              </div>
             </Form>
           )}
         </Formik>

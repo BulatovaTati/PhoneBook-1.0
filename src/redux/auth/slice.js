@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, logIn, logOut, refreshUser } from './operations';
+import {
+  register,
+  logIn,
+  logOut,
+  refreshUser,
+  requestResetEmail,
+  resetPassword,
+} from './operations';
 import customToast from '../../components/Toast/Toast';
 
 const ERROR_TEXT = 'Oops... something went wrong, try again!';

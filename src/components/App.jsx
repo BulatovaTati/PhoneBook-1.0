@@ -13,6 +13,8 @@ const HomePage = lazy(() => import('../pages/HomePage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage'));
+const RequestResetPasswordPage = lazy(() => import('../pages/RequestResetPasswordPage'));
+const ResetPasswordPage = lazy(() => import('../pages/ResetPasswordPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,13 @@ const App = () => {
           path="/contacts"
           element={<PrivateRoute redirectTo="/login" component={<ContactsPage />} />}
         />
+        <Route
+          path="/auth/request-reset"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<RequestResetPasswordPage />} />
+          }
+        />
+        <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
       </Route>
     </Routes>
   );

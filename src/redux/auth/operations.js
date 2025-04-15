@@ -60,11 +60,37 @@ export const refreshUser = createAsyncThunk('auth/refresh', async (_, { rejectWi
   }
 });
 
+export const requestResetEmail = createAsyncThunk(
+  'auth/requestResetEmail',
+  async (email, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('auth/send-reset-email', { email });
+      return data.message;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  'auth/resetPassword',
+  async ({ token, password }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('auth/reset-pwd', { token, password });
+      return data.message;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || error.message);
+    }
+  }
+);
+
 const operations = {
   register,
   logOut,
   logIn,
   refreshUser,
+  requestResetEmail,
+  resetPassword,
 };
 
 export default operations;
