@@ -15,6 +15,7 @@ const LoginPage = lazy(() => import('../pages/LoginPage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage'));
 const RequestResetPasswordPage = lazy(() => import('../pages/RequestResetPasswordPage'));
 const ResetPasswordPage = lazy(() => import('../pages/ResetPasswordPage'));
+const GoogleRedirectPage = lazy(() => import('../pages/GoogleRedirectPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
           }
         />
         <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/confirm-google-auth" element={<GoogleRedirectPage />} />
       </Route>
     </Routes>
   );

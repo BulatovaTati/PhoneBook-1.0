@@ -28,7 +28,9 @@ export const register = createAsyncThunk(
 export const logIn = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
     const { data } = await axios.post('/auth/login', credentials, { withCredentials: true });
+
     setAuthHeader(data.data.accessToken);
+
     return data;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -38,6 +40,7 @@ export const logIn = createAsyncThunk('auth/login', async (credentials, { reject
 export const logOut = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     await axios.post('/auth/logout', null, { withCredentials: true });
+
     clearAuthHeader();
   } catch (error) {
     return rejectWithValue(error.message);
@@ -67,7 +70,7 @@ export const requestResetEmail = createAsyncThunk(
       const { data } = await axios.post('auth/send-reset-email', { email });
       return data.message;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -79,7 +82,32 @@ export const resetPassword = createAsyncThunk(
       const { data } = await axios.post('auth/reset-pwd', { token, password });
       return data.message;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getGoogleOAuthUrl = createAsyncThunk(
+  'auth/getGoogleOAuthUrl',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get('/auth/get-oauth-url');
+      return data.data.url;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+export const confirmGoogleLogin = createAsyncThunk(
+  'auth/confirmGoogleLogin',
+  async (code, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('/auth/confirm-oauth', { code });
+      const { accessToken, name } = response.data.data;
+      return { accessToken, name };
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Login failed');
     }
   }
 );
@@ -91,6 +119,8 @@ const operations = {
   refreshUser,
   requestResetEmail,
   resetPassword,
+  getGoogleOAuthUrl,
+  confirmGoogleLogin,
 };
 
 export default operations;

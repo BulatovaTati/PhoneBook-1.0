@@ -1,12 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  register,
-  logIn,
-  logOut,
-  refreshUser,
-  requestResetEmail,
-  resetPassword,
-} from './operations';
+import { register, logIn, logOut, refreshUser, confirmGoogleLogin } from './operations';
 import customToast from '../../components/Toast/Toast';
 
 const ERROR_TEXT = 'Oops... something went wrong, try again!';
@@ -16,6 +9,7 @@ const initialState = {
   accessToken: null,
   isLoggedIn: false,
   isRefreshing: false,
+  error: null,
 };
 
 const authSlice = createSlice({
@@ -34,7 +28,6 @@ const authSlice = createSlice({
         state.user = payload.data.name;
         state.accessToken = payload.data.accessToken;
         state.isLoggedIn = true;
-        customToast('success', 'Successful Log In');
       })
       .addCase(logIn.rejected, state => {
         customToast('error', ERROR_TEXT);
@@ -44,7 +37,6 @@ const authSlice = createSlice({
         state.user = null;
         state.accessToken = null;
         state.isLoggedIn = false;
-        customToast('success', 'Successful Log Out');
       })
       .addCase(logOut.rejected, state => {
         customToast('error', ERROR_TEXT);
@@ -64,7 +56,18 @@ const authSlice = createSlice({
         state.user = null;
         state.accessToken = null;
         state.isLoggedIn = false;
-        customToast('warn', 'Session expired, please log in again');
+      })
+      .addCase(confirmGoogleLogin.pending, state => {
+        state.error = null;
+      })
+      .addCase(confirmGoogleLogin.fulfilled, (state, { payload }) => {
+        state.user = payload.name;
+        state.accessToken = payload.accessToken;
+        state.isLoggedIn = true;
+      })
+      .addCase(confirmGoogleLogin.rejected, (state, action) => {
+        state.error = action.payload;
+        customToast('error', ERROR_TEXT);
       }),
 });
 

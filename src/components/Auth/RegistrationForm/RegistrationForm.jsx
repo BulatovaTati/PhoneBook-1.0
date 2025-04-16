@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 
 import { register } from '../../../redux/auth/operations';
 import { validationSchemaRegistrationForm } from '../../validationsForm';
+import GoogleLoginButton from '../../GoogleLoginButton/GoogleLoginButton.jsx';
 
 const initialValues = {
   name: '',
@@ -73,7 +74,6 @@ const RegistrationForm = () => {
                     name="name"
                     type="name"
                     autoComplete="family-name"
-                    autoFocus
                     error={touched.name && Boolean(errors.name)}
                     helperText={touched.name && errors.name}
                   />
@@ -113,6 +113,7 @@ const RegistrationForm = () => {
             </Form>
           )}
         </Formik>
+        <GoogleLoginButton />
       </Box>
     </Container>
   );
