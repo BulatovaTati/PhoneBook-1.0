@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link } from 'react-router-dom';
+import GoogleLoginButton from '../../GoogleLoginButton/GoogleLoginButton.jsx';
 
 const initialValues = { email: '', password: '' };
 
@@ -56,7 +57,6 @@ const LoginForm = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
               />
@@ -82,6 +82,7 @@ const LoginForm = () => {
             </Form>
           )}
         </Formik>
+        <GoogleLoginButton />
       </Box>
     </Container>
   );

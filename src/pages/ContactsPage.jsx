@@ -10,6 +10,7 @@ import Loader from '../components/Loader/Loader';
 
 import {
   selectError,
+  selectFilteredContacts,
   selectIsLoading,
   selectPage,
   selectTotalPages,
@@ -23,6 +24,7 @@ const ContactPage = () => {
   const error = useSelector(selectError);
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
+  const contacts = useSelector(selectFilteredContacts);
 
   useEffect(() => {
     dispatch(fetchContacts({ page }));
@@ -43,7 +45,9 @@ const ContactPage = () => {
       </Title>
       {isLoading && !error && <Loader />}
       {!isLoading && <ContactList />}
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+      {contacts.length > 0 && totalPages > 1 && (
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+      )}
     </>
   );
 };

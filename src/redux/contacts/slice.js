@@ -38,7 +38,7 @@ const contactsSlice = createSlice({
         state.totalPages = action.payload.data.totalPages;
         state.page = action.payload.data.page;
 
-        if (action.payload.length === 0) {
+        if (action.payload.data.data.length === 0) {
           customToast('warn', 'No countacts added');
           return;
         }

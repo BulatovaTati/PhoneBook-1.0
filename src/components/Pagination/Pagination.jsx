@@ -23,7 +23,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       previousClassName={s.pagination_btn_prev}
       nextClassName={s.pagination_btn_next}
       disabledClassName={s.pagination_btn_hidden}
-      forcePage={currentPage - 1}
+      forcePage={Math.min(currentPage - 1, Math.max(0, totalPages - 1))}
     />
   );
 };
